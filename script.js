@@ -3,6 +3,9 @@ let codes = document.querySelectorAll(".code")
 
 codes.forEach((code,index)=> {
 
+ code.value = code.value.replace(/[^0-9]/g, '');
+
+
  code.addEventListener("input", () => {
    if(code.value.length == 1){
 
