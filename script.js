@@ -11,7 +11,7 @@ codes.forEach((code,index)=> {
 
     if(index  < codes.length-1){
 
-        codes[index+1].focus()
+        codes[index+1].focus();
         codes[index+1].classList.add("focused")
     }
    }
@@ -19,20 +19,18 @@ codes.forEach((code,index)=> {
  })
 
  code.addEventListener("keydown", (e) => {
+  if (e.key === "Backspace") {
+    if (code.value.length > 0) {
+      
+      code.value = "";
+    } else if (index > 0) {
+      
+      codes[index - 1].focus();
+      codes[index - 1].classList.add("focused");
+    }
+  }
+});
 
-    if(e.key == "Backspace"){
-
-       
-
-            if(index > 0 && code.value.length == 0)
-        
-             {
-                codes[index-1].focus()
-                codes[index-1].classList.add("focused")
-
-             }   
-        }
-    })
 
     code.addEventListener("blur", () => {
 
