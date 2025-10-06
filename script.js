@@ -1,46 +1,44 @@
-//your JS code here. If required.
-let codes = document.querySelectorAll(".code")
+let codes = document.querySelectorAll(".code");
 
-codes.forEach((code,index)=> {
+codes.forEach((code, index) => {
 
- code.value = code.value.replace(/[^0-9]/g, '');
+    // INPUT EVENT
+    code.addEventListener("input", () => {
+        if (!/^\d$/.test(code.value)) {
+            code.value = "";
+            return;
+        }
 
+        if (index < codes.length - 1) {
+            codes[index + 1].focus();
+            codes[index + 1].classList.add("focused");
+        }
+    });
 
- code.addEventListener("input", () => {
-   if(code.value.length == 1){
+    // KEYDOWN EVENT
+    code.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace") {
+            e.preventDefault();
+            if (code.value !== "") {
+                code.value = "";
+            } else if (index > 0) {
+                codes[index - 1].focus();
+                codes[index - 1].classList.add("focused");
+            }
+        }
+    });
 
-    if(index  < codes.length-1){
+    // BLUR EVENT
+    code.addEventListener("blur", () => {
+        code.classList.remove("focused");
+    });
 
-        codes[index+1].focus();
-        codes[index+1].classList.add("focused")
-    }
-   }
-  
- })
-
- code.addEventListener("keydown", (e) => {
-  if (e.key === "Backspace") {
-    if (code.value.length > 0) {
-      
-      code.value = "";
-    } else if (index > 0) {
-      
-      codes[index - 1].focus();
-      codes[index - 1].classList.add("focused");
-    }
-  }
+    
+    code.addEventListener("focus", () => {
+        code.classList.add("focused");
+    });
 });
 
 
-    code.addEventListener("blur", () => {
-
-        code.classList.remove("focused")
-    })
-    
-
- })
-
- 
-
-
-
+codes[0].focus();
+codes[0].classList.add("focused");
